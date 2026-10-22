@@ -1,0 +1,152 @@
+graph LR
+    subgraph alternative_investments
+        M_and_A_model["M_and_A_model"]
+        search_fund["search_fund"]
+    end
+    subgraph corporate_finance
+        dcf["dcf"]
+        dcf_model["dcf_model"]
+        free_cash_flow["free_cash_flow"]
+    end
+    subgraph derivatives
+        black_scholes_model["black_scholes_model"]
+    end
+    subgraph economics
+        capm_calculator["capm_calculator"]
+        market_efficiency["market_efficiency"]
+    end
+    subgraph equity_investments
+        lbo_model["lbo_model"]
+    end
+    subgraph ethics_and_professional_standards
+        advisers_act["advisers_act"]
+        cfa_code_of_ethics["cfa_code_of_ethics"]
+        gips_report_builder["gips_report_builder"]
+    end
+    subgraph financial_statement_analysis
+        3_statement_model["3_statement_model"]
+        net_debt_bridge["net_debt_bridge"]
+    end
+    subgraph fixed_income
+        yield_curve_model["yield_curve_model"]
+    end
+    subgraph portfolio_management
+        factor_risk_model["factor_risk_model"]
+    end
+    subgraph quantitative_methods
+        monte_carlo_engine["monte_carlo_engine"]
+        time_value_of_money["time_value_of_money"]
+    end
+    subgraph wealth_planning
+        academic_research["academic_research"]
+        binomial_tree_model["binomial_tree_model"]
+    end
+    academic_doctorate["academic_doctorate"]
+    backtest_marketing["backtest_marketing"]
+    broker_dealer_execution["broker_dealer_execution"]
+    caia_charter["caia_charter"]
+    call_option["call_option"]
+    capital_asset_pricing_model["capital_asset_pricing_model"]
+    cfa_charter["cfa_charter"]
+    charter_route["charter_route"]
+    comparable_company_analysis["comparable_company_analysis"]
+    corporate_bond["corporate_bond"]
+    cpa_license["cpa_license"]
+    discount_rate["discount_rate [turns future cash into present value]"]
+    educational_content_creation["educational_content_creation"]
+    enterprise_value["enterprise_value"]
+    equity["equity"]
+    equity_value["equity_value"]
+    frm_certification["frm_certification"]
+    fund_raising["fund_raising"]
+    gips_standards["gips_standards"]
+    interest_rate_swap["interest_rate_swap"]
+    investment_advisory["investment_advisory"]
+    monte_carlo_simulation["monte_carlo_simulation"]
+    net_debt["net_debt"]
+    per_share_value["per_share_value"]
+    portfolio_rebalancing["portfolio_rebalancing"]
+    quant_route["quant_route"]
+    scenario_analysis["scenario_analysis"]
+    sec_rule_206["sec_rule_206"]
+    simulated_paper_trading["simulated_paper_trading"]
+    study_scope["study_scope"]
+    treasury_bill["treasury_bill"]
+    corporate_finance -->|flows-to| free_cash_flow
+    corporate_finance -->|precedes| dcf
+    corporate_finance -->|precedes| financial_statement_analysis
+    corporate_finance -->|requires| dcf_model
+    ethics_and_professional_standards -->|requires| gips_report_builder
+    ethics_and_professional_standards -->|precedes| cfa_code_of_ethics
+    ethics_and_professional_standards -->|precedes| advisers_act
+    quantitative_methods -->|precedes| economics
+    quantitative_methods -->|requires| monte_carlo_engine
+    quantitative_methods -->|precedes| time_value_of_money
+    economics -->|precedes| equity_investments
+    economics -->|requires| capm_calculator
+    economics -->|precedes| market_efficiency
+    financial_statement_analysis -->|precedes| quantitative_methods
+    financial_statement_analysis -->|requires| 3_statement_model
+    financial_statement_analysis -->|precedes| net_debt_bridge
+    equity_investments -->|precedes| fixed_income
+    equity_investments -->|requires| lbo_model
+    fixed_income -->|precedes| derivatives
+    fixed_income -->|requires| yield_curve_model
+    derivatives -->|precedes| alternative_investments
+    derivatives -->|requires| black_scholes_model
+    alternative_investments -->|precedes| portfolio_management
+    alternative_investments -->|requires| M_and_A_model
+    alternative_investments -->|precedes| search_fund
+    portfolio_management -->|precedes| wealth_planning
+    portfolio_management -->|requires| factor_risk_model
+    wealth_planning -->|precedes| ethics_and_professional_standards
+    wealth_planning -->|requires| binomial_tree_model
+    wealth_planning -->|precedes| academic_research
+    discount_rate -->|flows-to| enterprise_value
+    discount_rate -->|flows-to| equity_value
+    discount_rate -->|requires| dcf_model
+    net_debt_bridge -->|precedes| 3_statement_model
+    time_value_of_money -->|precedes| monte_carlo_simulation
+    market_efficiency -->|precedes| capital_asset_pricing_model
+    capital_asset_pricing_model -->|precedes| capm_calculator
+    free_cash_flow -->|flows-to| discount_rate
+    enterprise_value -->|flows-to| net_debt
+    net_debt -->|flows-to| equity_value
+    equity_value -->|flows-to| per_share_value
+    equity -->|requires| dcf_model
+    corporate_bond -->|requires| yield_curve_model
+    call_option -->|requires| black_scholes_model
+    call_option -->|precedes| binomial_tree_model
+    call_option -->|exercised-by| equity
+    interest_rate_swap -->|requires| factor_risk_model
+    treasury_bill -->|requires| capm_calculator
+    treasury_bill -->|precedes| yield_curve_model
+    dcf -->|precedes| dcf_model
+    comparable_company_analysis -->|precedes| scenario_analysis
+    monte_carlo_simulation -->|precedes| monte_carlo_engine
+    scenario_analysis -->|precedes| M_and_A_model
+    portfolio_rebalancing -->|permitted-as-study| study_scope
+    academic_research -->|permitted-as-study| study_scope
+    simulated_paper_trading -->|permitted-as-study| study_scope
+    educational_content_creation -->|permitted-as-study| study_scope
+    investment_advisory -->|requires-registration| advisers_act
+    broker_dealer_execution -->|requires-registration| sec_rule_206
+    fund_raising -->|requires-registration| advisers_act
+    backtest_marketing -->|requires-registration| sec_rule_206
+    advisers_act -->|precedes| sec_rule_206
+    cfa_code_of_ethics -->|precedes| gips_standards
+    gips_standards -->|precedes| gips_report_builder
+    charter_route -->|requires| cfa_charter
+    academic_doctorate -->|precedes| charter_route
+    quant_route -->|precedes| academic_doctorate
+    search_fund -->|precedes| quant_route
+    cfa_charter -->|precedes| cpa_license
+    cpa_license -->|precedes| frm_certification
+    frm_certification -->|precedes| caia_charter
+    dcf_model -->|prices| equity
+    3_statement_model -->|precedes| comparable_company_analysis
+    M_and_A_model -->|precedes| lbo_model
+    black_scholes_model -->|prices| call_option
+    yield_curve_model -->|prices| corporate_bond
+    factor_risk_model -->|exercised-by| portfolio_rebalancing
+    binomial_tree_model -->|precedes| black_scholes_model

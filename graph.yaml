@@ -1,0 +1,473 @@
+nodes:
+  # ---------------------------------------------------------------------------
+  # 1. DOMAINS (11: 10 CFA Level I Topic Areas + Corporate Finance)
+  # ---------------------------------------------------------------------------
+  - id: corporate_finance
+    type: domain
+  - id: ethics_and_professional_standards
+    type: domain
+  - id: quantitative_methods
+    type: domain
+  - id: economics
+    type: domain
+  - id: financial_statement_analysis
+    type: domain
+  - id: equity_investments
+    type: domain
+  - id: fixed_income
+    type: domain
+  - id: derivatives
+    type: domain
+  - id: alternative_investments
+    type: domain
+  - id: portfolio_management
+    type: domain
+  - id: wealth_planning
+    type: domain
+
+  # ---------------------------------------------------------------------------
+  # 2. CONCEPTS (6)
+  # ---------------------------------------------------------------------------
+  - id: discount_rate
+    type: concept
+    landmark: "turns future cash into present value"
+  - id: net_debt_bridge
+    type: concept
+  - id: study_scope
+    type: concept
+  - id: time_value_of_money
+    type: concept
+  - id: market_efficiency
+    type: concept
+  - id: capital_asset_pricing_model
+    type: concept
+
+  # ---------------------------------------------------------------------------
+  # 3. QUANTITIES (5: Value Chain)
+  # ---------------------------------------------------------------------------
+  - id: free_cash_flow
+    type: quantity
+  - id: enterprise_value
+    type: quantity
+  - id: net_debt
+    type: quantity
+  - id: equity_value
+    type: quantity
+  - id: per_share_value
+    type: quantity
+
+  # ---------------------------------------------------------------------------
+  # 4. INSTRUMENTS (5)
+  # ---------------------------------------------------------------------------
+  - id: equity
+    type: instrument
+  - id: corporate_bond
+    type: instrument
+  - id: call_option
+    type: instrument
+  - id: interest_rate_swap
+    type: instrument
+  - id: treasury_bill
+    type: instrument
+
+  # ---------------------------------------------------------------------------
+  # 5. METHODS (4)
+  # ---------------------------------------------------------------------------
+  - id: dcf
+    type: method
+  - id: comparable_company_analysis
+    type: method
+  - id: monte_carlo_simulation
+    type: method
+  - id: scenario_analysis
+    type: method
+
+  # ---------------------------------------------------------------------------
+  # 6. ACTIVITIES (8: 4 Permitted as Study, 4 Regulated Excluded)
+  # ---------------------------------------------------------------------------
+  - id: portfolio_rebalancing
+    type: activity
+  - id: academic_research
+    type: activity
+  - id: simulated_paper_trading
+    type: activity
+  - id: educational_content_creation
+    type: activity
+  - id: investment_advisory
+    type: activity
+  - id: broker_dealer_execution
+    type: activity
+  - id: fund_raising
+    type: activity
+  - id: backtest_marketing
+    type: activity
+
+  # ---------------------------------------------------------------------------
+  # 7. REGULATORY ITEMS (4)
+  # ---------------------------------------------------------------------------
+  - id: advisers_act
+    type: regulatory-item
+  - id: sec_rule_206
+    type: regulatory-item
+  - id: cfa_code_of_ethics
+    type: regulatory-item
+  - id: gips_standards
+    type: regulatory-item
+
+  # ---------------------------------------------------------------------------
+  # 8. ROUTES (4)
+  # ---------------------------------------------------------------------------
+  - id: charter_route
+    type: route
+  - id: academic_doctorate
+    type: route
+  - id: quant_route
+    type: route
+  - id: search_fund
+    type: route
+
+  # ---------------------------------------------------------------------------
+  # 9. CREDENTIALS (4)
+  # ---------------------------------------------------------------------------
+  - id: cfa_charter
+    type: credential
+  - id: cpa_license
+    type: credential
+  - id: frm_certification
+    type: credential
+  - id: caia_charter
+    type: credential
+
+  # ---------------------------------------------------------------------------
+  # 10. BUILDS (11)
+  # ---------------------------------------------------------------------------
+  - id: dcf_model
+    type: build
+  - id: lbo_model
+    type: build
+  - id: 3_statement_model
+    type: build
+  - id: M_and_A_model
+    type: build
+  - id: black_scholes_model
+    type: build
+  - id: yield_curve_model
+    type: build
+  - id: factor_risk_model
+    type: build
+  - id: binomial_tree_model
+    type: build
+  - id: capm_calculator
+    type: build
+  - id: monte_carlo_engine
+    type: build
+  - id: gips_report_builder
+    type: build
+
+# =============================================================================
+# EDGES
+# =============================================================================
+edges:
+  # ---------------------------------------------------------------------------
+  # Value Chain Wiring
+  # ---------------------------------------------------------------------------
+  - source: corporate_finance
+    target: free_cash_flow
+    type: flows-to
+  - source: corporate_finance
+    target: dcf
+    type: precedes
+
+  # Unlevered Route (5 edges: free_cash_flow -> discount_rate -> enterprise_value -> net_debt -> equity_value -> per_share_value)
+  - source: free_cash_flow
+    target: discount_rate
+    type: flows-to
+  - source: discount_rate
+    target: enterprise_value
+    type: flows-to
+  - source: enterprise_value
+    target: net_debt
+    type: flows-to
+  - source: net_debt
+    target: equity_value
+    type: flows-to
+  - source: equity_value
+    target: per_share_value
+    type: flows-to
+
+  # Levered Route (3 edges: free_cash_flow -> discount_rate -> equity_value -> per_share_value)
+  - source: discount_rate
+    target: equity_value
+    type: flows-to
+
+  # ---------------------------------------------------------------------------
+  # Precedence Chain Across Domains
+  # ---------------------------------------------------------------------------
+  - source: corporate_finance
+    target: financial_statement_analysis
+    type: precedes
+  - source: financial_statement_analysis
+    target: quantitative_methods
+    type: precedes
+  - source: quantitative_methods
+    target: economics
+    type: precedes
+  - source: economics
+    target: equity_investments
+    type: precedes
+  - source: equity_investments
+    target: fixed_income
+    type: precedes
+  - source: fixed_income
+    target: derivatives
+    type: precedes
+  - source: derivatives
+    target: alternative_investments
+    type: precedes
+  - source: alternative_investments
+    target: portfolio_management
+    type: precedes
+  - source: portfolio_management
+    target: wealth_planning
+    type: precedes
+  - source: wealth_planning
+    target: ethics_and_professional_standards
+    type: precedes
+
+  # ---------------------------------------------------------------------------
+  # Build Coverage Links for Domains (domain -> build)
+  # ---------------------------------------------------------------------------
+  - source: corporate_finance
+    target: dcf_model
+    type: requires
+  - source: financial_statement_analysis
+    target: 3_statement_model
+    type: requires
+  - source: quantitative_methods
+    target: monte_carlo_engine
+    type: requires
+  - source: economics
+    target: capm_calculator
+    type: requires
+  - source: equity_investments
+    target: lbo_model
+    type: requires
+  - source: fixed_income
+    target: yield_curve_model
+    type: requires
+  - source: derivatives
+    target: black_scholes_model
+    type: requires
+  - source: alternative_investments
+    target: M_and_A_model
+    type: requires
+  - source: portfolio_management
+    target: factor_risk_model
+    type: requires
+  - source: wealth_planning
+    target: binomial_tree_model
+    type: requires
+  - source: ethics_and_professional_standards
+    target: gips_report_builder
+    type: requires
+
+  # ---------------------------------------------------------------------------
+  # Build Coverage Links for Instruments (instrument -> build)
+  # ---------------------------------------------------------------------------
+  - source: equity
+    target: dcf_model
+    type: requires
+  - source: corporate_bond
+    target: yield_curve_model
+    type: requires
+  - source: call_option
+    target: black_scholes_model
+    type: requires
+  - source: interest_rate_swap
+    target: factor_risk_model
+    type: requires
+  - source: treasury_bill
+    target: capm_calculator
+    type: requires
+
+  # ---------------------------------------------------------------------------
+  # Build Coverage Link for Landmarks (discount_rate -> build)
+  # ---------------------------------------------------------------------------
+  - source: discount_rate
+    target: dcf_model
+    type: requires
+
+  # ---------------------------------------------------------------------------
+  # Sub-graph Wiring (Financial Statement Analysis & Builds)
+  # ---------------------------------------------------------------------------
+  - source: financial_statement_analysis
+    target: net_debt_bridge
+    type: precedes
+  - source: net_debt_bridge
+    target: 3_statement_model
+    type: precedes
+  - source: 3_statement_model
+    target: comparable_company_analysis
+    type: precedes
+  - source: comparable_company_analysis
+    target: scenario_analysis
+    type: precedes
+  - source: scenario_analysis
+    target: M_and_A_model
+    type: precedes
+  - source: M_and_A_model
+    target: lbo_model
+    type: precedes
+
+  # ---------------------------------------------------------------------------
+  # Sub-graph Wiring (Quantitative Methods & Analytics)
+  # ---------------------------------------------------------------------------
+  - source: quantitative_methods
+    target: time_value_of_money
+    type: precedes
+  - source: time_value_of_money
+    target: monte_carlo_simulation
+    type: precedes
+  - source: monte_carlo_simulation
+    target: monte_carlo_engine
+    type: precedes
+
+  # ---------------------------------------------------------------------------
+  # Sub-graph Wiring (Economics & Asset Pricing)
+  # ---------------------------------------------------------------------------
+  - source: economics
+    target: market_efficiency
+    type: precedes
+  - source: market_efficiency
+    target: capital_asset_pricing_model
+    type: precedes
+  - source: capital_asset_pricing_model
+    target: capm_calculator
+    type: precedes
+
+  # ---------------------------------------------------------------------------
+  # Sub-graph Wiring (Equity & Valuation)
+  # ---------------------------------------------------------------------------
+  - source: dcf
+    target: dcf_model
+    type: precedes
+  - source: dcf_model
+    target: equity
+    type: prices
+
+  # ---------------------------------------------------------------------------
+  # Sub-graph Wiring (Fixed Income)
+  # ---------------------------------------------------------------------------
+  - source: treasury_bill
+    target: yield_curve_model
+    type: precedes
+  - source: yield_curve_model
+    target: corporate_bond
+    type: prices
+
+  # ---------------------------------------------------------------------------
+  # Sub-graph Wiring (Derivatives)
+  # ---------------------------------------------------------------------------
+  - source: call_option
+    target: binomial_tree_model
+    type: precedes
+  - source: binomial_tree_model
+    target: black_scholes_model
+    type: precedes
+  - source: black_scholes_model
+    target: call_option
+    type: prices
+  - source: call_option
+    target: equity
+    type: exercised-by
+
+  # ---------------------------------------------------------------------------
+  # Sub-graph Wiring (Alternative Investments & Career Routes)
+  # ---------------------------------------------------------------------------
+  - source: alternative_investments
+    target: search_fund
+    type: precedes
+  - source: search_fund
+    target: quant_route
+    type: precedes
+  - source: quant_route
+    target: academic_doctorate
+    type: precedes
+  - source: academic_doctorate
+    target: charter_route
+    type: precedes
+
+  # ---------------------------------------------------------------------------
+  # Sub-graph Wiring (Credentials)
+  # ---------------------------------------------------------------------------
+  - source: charter_route
+    target: cfa_charter
+    type: requires
+  - source: cfa_charter
+    target: cpa_license
+    type: precedes
+  - source: cpa_license
+    target: frm_certification
+    type: precedes
+  - source: frm_certification
+    target: caia_charter
+    type: precedes
+
+  # ---------------------------------------------------------------------------
+  # Sub-graph Wiring (Portfolio Management & Risk)
+  # ---------------------------------------------------------------------------
+  - source: factor_risk_model
+    target: portfolio_rebalancing
+    type: exercised-by
+
+  # ---------------------------------------------------------------------------
+  # Permitted Study Activities (Activity 'u' -> study_scope 'v')
+  # ---------------------------------------------------------------------------
+  - source: wealth_planning
+    target: academic_research
+    type: precedes
+  - source: academic_research
+    target: study_scope
+    type: permitted-as-study
+  - source: simulated_paper_trading
+    target: study_scope
+    type: permitted-as-study
+  - source: educational_content_creation
+    target: study_scope
+    type: permitted-as-study
+  - source: portfolio_rebalancing
+    target: study_scope
+    type: permitted-as-study
+
+  # ---------------------------------------------------------------------------
+  # Registered Activities (Activity 'u' -> Regulatory Item 'v')
+  # Matches EXCLUDED_ACTIVITIES required by TestStudyScope
+  # ---------------------------------------------------------------------------
+  - source: ethics_and_professional_standards
+    target: cfa_code_of_ethics
+    type: precedes
+  - source: cfa_code_of_ethics
+    target: gips_standards
+    type: precedes
+  - source: gips_standards
+    target: gips_report_builder
+    type: precedes
+  - source: ethics_and_professional_standards
+    target: advisers_act
+    type: precedes
+  - source: advisers_act
+    target: sec_rule_206
+    type: precedes
+
+  - source: investment_advisory
+    target: advisers_act
+    type: requires-registration
+  - source: broker_dealer_execution
+    target: sec_rule_206
+    type: requires-registration
+  - source: fund_raising
+    target: advisers_act
+    type: requires-registration
+  - source: backtest_marketing
+    target: sec_rule_206
+    type: requires-registration
