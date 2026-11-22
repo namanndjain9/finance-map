@@ -4,165 +4,351 @@ nodes:
   # ---------------------------------------------------------------------------
   - id: corporate_finance
     type: domain
+    label: "Corporate finance"
+    description: "How companies make investment, financing, and payout decisions, and how those decisions create the cash flows that get valued. The starting point of the valuation chain."
+    aliases: ["corporate issuers", "capital budgeting", "capital structure"]
   - id: ethics_and_professional_standards
     type: domain
+    label: "Ethics and professional standards"
+    description: "The duties, codes of conduct, and performance-presentation standards that govern how investment professionals treat clients, employers, and markets."
+    aliases: ["ethics", "professional conduct", "ethical standards"]
   - id: quantitative_methods
     type: domain
+    label: "Quantitative methods"
+    description: "Statistics, probability, and time-value-of-money tools used to describe data, estimate relationships, and test hypotheses in finance."
+    aliases: ["quant methods", "statistics", "probability", "econometrics"]
   - id: economics
     type: domain
+    label: "Economics"
+    description: "Micro- and macroeconomics used to understand demand and supply, business cycles, monetary and fiscal policy, and how currencies and rates affect asset prices."
+    aliases: ["macroeconomics", "microeconomics", "macro", "monetary policy"]
   - id: financial_statement_analysis
     type: domain
+    label: "Financial statement analysis"
+    description: "Reading and adjusting the income statement, balance sheet, and cash flow statement to judge a company's performance, earnings quality, and leverage."
+    aliases: ["FSA", "financial statements", "accounting analysis", "income statement", "balance sheet"]
   - id: equity_investments
     type: domain
+    label: "Equity investments"
+    description: "How stock markets work and how shares are analysed and valued, from market structure to valuation models and transaction analysis."
+    aliases: ["stock markets", "equity valuation", "equity analysis"]
   - id: fixed_income
     type: domain
+    label: "Fixed income"
+    description: "Bonds and other debt instruments: pricing, yields, duration, credit risk, and the term structure of interest rates."
+    aliases: ["bonds", "debt securities", "bond markets", "credit risk"]
   - id: derivatives
     type: domain
+    label: "Derivatives"
+    description: "Contracts whose value derives from an underlying asset, such as forwards, futures, swaps, and options, used to hedge or take exposure."
+    aliases: ["options and futures", "forwards", "futures", "hedging instruments"]
   - id: alternative_investments
     type: domain
+    label: "Alternative investments"
+    description: "Assets outside traditional stocks and bonds, such as private equity, hedge funds, real estate, commodities, and infrastructure."
+    aliases: ["alternatives", "private equity", "hedge funds", "real assets", "private markets"]
   - id: portfolio_management
     type: domain
+    label: "Portfolio management"
+    description: "Building and maintaining a portfolio: setting objectives, allocating assets, measuring risk and return, and rebalancing over time."
+    aliases: ["asset allocation", "portfolio construction", "portfolio theory", "risk and return"]
   - id: wealth_planning
     type: domain
+    label: "Wealth planning"
+    description: "Planning individual and family finances (goals, risk capacity, taxes, retirement, estate) so that investment choices fit a person's situation."
+    aliases: ["financial planning", "private wealth", "retirement planning", "estate planning"]
 
   # ---------------------------------------------------------------------------
   # 2. CONCEPTS (6)
   # ---------------------------------------------------------------------------
   - id: discount_rate
     type: concept
+    label: "Discount rate"
+    description: "The rate used to convert future cash flows into present value. It reflects the time value of money and the riskiness of the cash flows."
+    aliases: ["WACC", "cost of capital", "required return", "hurdle rate", "discounting"]
     landmark: "turns future cash into present value"
   - id: net_debt_bridge
     type: concept
+    label: "Net debt bridge"
+    description: "The step that converts enterprise value into equity value by subtracting debt and adding cash, plus other claims such as minority interest or preferred stock."
+    aliases: ["EV to equity bridge", "enterprise to equity bridge", "net debt adjustment"]
   - id: study_scope
     type: concept
+    label: "Study scope"
+    description: "The boundary between learning activities that suit self-study (research, simulation, education) and activities that would require registration or licensing."
+    aliases: ["study boundary", "permitted study activities", "learning boundary"]
   - id: time_value_of_money
     type: concept
+    label: "Time value of money"
+    description: "The principle that money today is worth more than the same amount later. It underpins present value, future value, annuities, and discounting."
+    aliases: ["TVM", "present value", "future value", "compounding", "PV", "FV"]
   - id: market_efficiency
     type: concept
+    label: "Market efficiency"
+    description: "The idea that prices already reflect available information, which limits how easily investors can earn excess returns; formalised as the efficient market hypothesis."
+    aliases: ["EMH", "efficient market hypothesis", "efficient markets"]
   - id: capital_asset_pricing_model
     type: concept
+    label: "Capital asset pricing model"
+    description: "A model linking an asset's expected return to its sensitivity to market risk (beta), the risk-free rate, and the market risk premium."
+    aliases: ["CAPM", "beta", "cost of equity", "security market line", "market risk premium"]
 
   # ---------------------------------------------------------------------------
   # 3. QUANTITIES (5: Value Chain)
   # ---------------------------------------------------------------------------
   - id: free_cash_flow
     type: quantity
+    label: "Free cash flow"
+    description: "Cash a business generates after operating costs, taxes, and reinvestment, available to capital providers. The starting point of a discounted cash flow valuation."
+    aliases: ["FCF", "FCFF", "FCFE", "unlevered free cash flow"]
   - id: enterprise_value
     type: quantity
+    label: "Enterprise value"
+    description: "The value of the whole operating business to all capital providers, debt and equity alike, obtained by discounting unlevered free cash flow."
+    aliases: ["EV", "firm value", "TEV", "total enterprise value"]
   - id: net_debt
     type: quantity
+    label: "Net debt"
+    description: "Total debt minus cash and cash equivalents. It is the amount subtracted from enterprise value to reach equity value."
+    aliases: ["debt less cash", "net financial debt", "net borrowing"]
   - id: equity_value
     type: quantity
+    label: "Equity value"
+    description: "The value of the business attributable to shareholders after debt claims are settled; the market capitalisation when observed from prices."
+    aliases: ["market cap", "market capitalization", "shareholder value"]
   - id: per_share_value
     type: quantity
+    label: "Value per share"
+    description: "Equity value divided by diluted shares outstanding: the intrinsic price per share to compare with the market price."
+    aliases: ["intrinsic value per share", "fair value per share", "target price", "share price estimate"]
 
   # ---------------------------------------------------------------------------
   # 4. INSTRUMENTS (5)
   # ---------------------------------------------------------------------------
   - id: equity
     type: instrument
+    label: "Equity"
+    description: "An ownership claim on a company's residual cash flows, typically a common share, valued by discounting expected cash flows or by using multiples."
+    aliases: ["common stock", "ordinary share", "equity share"]
   - id: corporate_bond
     type: instrument
+    label: "Corporate bond"
+    description: "A debt security issued by a company that pays coupons and returns principal, priced by discounting at a yield that includes a credit spread."
+    aliases: ["bond", "corporate debt", "credit bond", "company bond"]
   - id: call_option
     type: instrument
+    label: "Call option"
+    description: "A contract giving the right, but not the obligation, to buy an underlying asset at a strike price by a set date. Priced with binomial or Black-Scholes models."
+    aliases: ["call options", "equity call", "right to buy at strike"]
   - id: interest_rate_swap
     type: instrument
+    label: "Interest rate swap"
+    description: "A derivative in which two parties exchange fixed-rate and floating-rate interest payments on a notional amount, used to hedge or reshape rate exposure."
+    aliases: ["IRS", "swap", "swaps", "fixed-for-floating swap", "plain vanilla swap"]
   - id: treasury_bill
     type: instrument
+    label: "Treasury bill"
+    description: "A short-term, zero-coupon government debt security sold at a discount. Its yield is the standard proxy for the risk-free rate."
+    aliases: ["T-bill", "T bill", "tbill", "risk-free asset", "government bill", "risk-free rate"]
 
   # ---------------------------------------------------------------------------
   # 5. METHODS (4)
   # ---------------------------------------------------------------------------
   - id: dcf
     type: method
+    label: "Discounted cash flow"
+    description: "Valuation method that estimates value as the present value of forecast free cash flows plus a terminal value."
+    aliases: ["DCF", "DCF valuation", "discounted cash flow analysis", "intrinsic valuation"]
   - id: comparable_company_analysis
     type: method
+    label: "Comparable company analysis"
+    description: "Relative valuation that applies multiples such as EV/EBITDA or P/E from similar listed companies to the target's own metrics."
+    aliases: ["comps", "trading comps", "relative valuation", "multiples valuation", "peer multiples"]
   - id: monte_carlo_simulation
     type: method
+    label: "Monte Carlo simulation"
+    description: "Technique that draws many random scenarios from assumed distributions to estimate the distribution of an outcome such as value or portfolio return."
+    aliases: ["Monte Carlo", "MC simulation", "stochastic simulation", "random simulation"]
   - id: scenario_analysis
     type: method
+    label: "Scenario analysis"
+    description: "Evaluating outcomes under a small set of internally consistent assumptions (base, upside, downside) to see how sensitive a result is."
+    aliases: ["sensitivity analysis", "what-if analysis", "base bull bear cases"]
 
   # ---------------------------------------------------------------------------
   # 6. ACTIVITIES (8: 4 Permitted as Study, 4 Regulated Excluded)
   # ---------------------------------------------------------------------------
   - id: portfolio_rebalancing
     type: activity
+    label: "Portfolio rebalancing"
+    description: "Restoring a portfolio to its target weights after market moves cause drift. Treated here as a study exercise on a simulated or personal portfolio."
+    aliases: ["rebalancing", "rebalance", "restore target weights", "asset allocation drift"]
   - id: academic_research
     type: activity
+    label: "Academic research"
+    description: "Reading and producing scholarly work on finance: papers, replication studies, and theses."
+    aliases: ["finance research", "thesis", "scholarly research"]
   - id: simulated_paper_trading
     type: activity
+    label: "Simulated paper trading"
+    description: "Practising trading ideas with virtual money and no real orders, so that no client or market funds are handled."
+    aliases: ["paper trading", "virtual trading", "simulated trading", "trading simulator", "practice trading"]
   - id: educational_content_creation
     type: activity
+    label: "Educational content creation"
+    description: "Writing or teaching general finance concepts without giving personalised recommendations."
+    aliases: ["finance blog", "writing educational content", "tutorials", "teach finance"]
   - id: investment_advisory
     type: activity
+    label: "Investment advisory"
+    description: "Giving personalised investment advice for compensation. This typically requires registration and sits outside study scope."
+    aliases: ["investment advice", "financial advisor", "financial adviser", "RIA", "giving investment advice", "advisory services"]
   - id: broker_dealer_execution
     type: activity
+    label: "Broker-dealer execution"
+    description: "Executing securities trades for others, or dealing as a business. This typically requires registration and sits outside study scope."
+    aliases: ["broker dealer", "broker-dealer", "trade execution", "executing client trades", "brokerage"]
   - id: fund_raising
     type: activity
+    label: "Fund raising"
+    description: "Soliciting outside investors' money into a fund or pooled vehicle. This typically involves securities and registration rules and sits outside study scope."
+    aliases: ["raising a fund", "raise capital for a fund", "start a hedge fund", "launch a fund", "pooled investment vehicle", "capital raising"]
   - id: backtest_marketing
     type: activity
+    label: "Backtest marketing"
+    description: "Promoting hypothetical, backtested performance to prospective clients. Restricted by advertising and performance-presentation rules and outside study scope."
+    aliases: ["marketing backtests", "advertising performance", "promoting backtested returns", "hypothetical performance advertising"]
 
   # ---------------------------------------------------------------------------
   # 7. REGULATORY ITEMS (4)
   # ---------------------------------------------------------------------------
   - id: advisers_act
     type: regulatory-item
+    label: "Investment Advisers Act"
+    description: "US federal law regulating investment advisers, including registration and fiduciary duty. A study reference, not legal advice."
+    aliases: ["Advisers Act", "Investment Advisers Act of 1940", "fiduciary duty", "SEC adviser registration"]
   - id: sec_rule_206
     type: regulatory-item
+    label: "SEC Section 206 rules"
+    description: "Antifraud provisions of Section 206 of the Advisers Act and related SEC rules, such as the marketing rule 206(4)-1, restricting misleading statements and performance advertising. A study reference, not legal advice."
+    aliases: ["Rule 206(4)-1", "marketing rule", "antifraud rule", "Section 206", "SEC marketing rule"]
   - id: cfa_code_of_ethics
     type: regulatory-item
+    label: "CFA Code of Ethics"
+    description: "The CFA Institute's principles (integrity, client priority, independent judgment, competence) that members and candidates must follow."
+    aliases: ["code of ethics", "CFA Institute code", "standards of professional conduct", "CFA ethics"]
   - id: gips_standards
     type: regulatory-item
+    label: "GIPS standards"
+    description: "Global Investment Performance Standards: voluntary ethical principles for fair, comparable presentation of investment performance."
+    aliases: ["GIPS", "Global Investment Performance Standards", "performance presentation standards", "performance reporting standards"]
 
   # ---------------------------------------------------------------------------
   # 8. ROUTES (4)
   # ---------------------------------------------------------------------------
   - id: charter_route
     type: route
+    label: "Charter route"
+    description: "Career path built on earning the CFA charter through three exam levels plus qualifying work experience."
+    aliases: ["CFA path", "charterholder path", "CFA exams route", "chartered path"]
   - id: academic_doctorate
     type: route
+    label: "Academic doctorate"
+    description: "Career path through a PhD in finance or economics toward research and university teaching."
+    aliases: ["PhD in finance", "finance PhD", "doctorate", "academic route", "academia"]
   - id: quant_route
     type: route
+    label: "Quant route"
+    description: "Career path into quantitative finance: strong maths, programming, and modelling for trading, risk, or research roles."
+    aliases: ["quantitative finance career", "quant career", "quant", "quantitative analyst", "quant trader path"]
   - id: search_fund
     type: route
+    label: "Search fund"
+    description: "Entrepreneurial route in which a searcher raises capital to find, acquire, and operate a small private company."
+    aliases: ["search fund model", "entrepreneurship through acquisition", "ETA", "acquire a small business"]
 
   # ---------------------------------------------------------------------------
   # 9. CREDENTIALS (4)
   # ---------------------------------------------------------------------------
   - id: cfa_charter
     type: credential
+    label: "CFA charter"
+    description: "Professional designation from CFA Institute, earned by passing three exams, meeting work-experience requirements, and committing to the code of ethics."
+    aliases: ["CFA", "Chartered Financial Analyst", "CFA designation", "CFA program", "CFA exam"]
   - id: cpa_license
     type: credential
+    label: "CPA license"
+    description: "US accounting license (Certified Public Accountant) focused on audit, tax, and financial reporting."
+    aliases: ["CPA", "Certified Public Accountant", "accounting license"]
   - id: frm_certification
     type: credential
+    label: "FRM certification"
+    description: "Financial Risk Manager certification from GARP, focused on market, credit, and operational risk."
+    aliases: ["FRM", "Financial Risk Manager", "GARP FRM", "risk manager certification"]
   - id: caia_charter
     type: credential
+    label: "CAIA charter"
+    description: "Chartered Alternative Investment Analyst designation, focused on alternative asset classes."
+    aliases: ["CAIA", "Chartered Alternative Investment Analyst", "alternative investment designation"]
 
   # ---------------------------------------------------------------------------
   # 10. BUILDS (11)
   # ---------------------------------------------------------------------------
   - id: dcf_model
     type: build
+    label: "DCF model"
+    description: "A spreadsheet or code model that forecasts free cash flows, discounts them, and outputs enterprise, equity, and per-share value."
+    aliases: ["DCF spreadsheet", "discounted cash flow model", "valuation model", "build a DCF"]
   - id: lbo_model
     type: build
+    label: "LBO model"
+    description: "Leveraged-buyout model covering acquisition financing, debt paydown, and sponsor returns (IRR and MOIC)."
+    aliases: ["LBO", "leveraged buyout", "leveraged buyout model", "private equity model", "LBO analysis"]
   - id: 3_statement_model
     type: build
+    label: "Three-statement model"
+    description: "Linked income statement, balance sheet, and cash flow forecast that feeds valuation models."
+    aliases: ["3-statement model", "three statement model", "integrated financial model", "financial statement model", "3 statement"]
   - id: M_and_A_model
     type: build
+    label: "M&A model"
+    description: "Merger model showing deal value, accretion and dilution of EPS, synergies, and the financing mix."
+    aliases: ["merger model", "M&A", "mergers and acquisitions", "accretion dilution model", "merger analysis"]
   - id: black_scholes_model
     type: build
+    label: "Black-Scholes model"
+    description: "Closed-form model that prices European options from spot price, strike, volatility, interest rate, and time to expiry."
+    aliases: ["Black-Scholes", "Black Scholes", "BSM", "Black-Scholes-Merton", "option pricing formula"]
   - id: yield_curve_model
     type: build
+    label: "Yield curve model"
+    description: "Model that bootstraps or fits the term structure of interest rates so bond cash flows can be discounted."
+    aliases: ["yield curve", "term structure", "bootstrapping spot rates", "interest rate curve", "bond pricing model"]
   - id: factor_risk_model
     type: build
+    label: "Factor risk model"
+    description: "Decomposes portfolio risk and return into factor exposures such as market, size, value, and momentum."
+    aliases: ["factor model", "multi-factor model", "Fama-French", "risk factor model", "factor exposures"]
   - id: binomial_tree_model
     type: build
+    label: "Binomial tree model"
+    description: "Discrete-time lattice that prices options by stepping the underlying up or down and discounting back to today."
+    aliases: ["binomial model", "binomial options pricing", "option lattice", "binomial lattice", "CRR model"]
   - id: capm_calculator
     type: build
+    label: "CAPM calculator"
+    description: "Tool that estimates beta and applies the capital asset pricing model to produce a cost of equity."
+    aliases: ["cost of equity calculator", "beta calculator", "CAPM tool", "expected return calculator"]
   - id: monte_carlo_engine
     type: build
+    label: "Monte Carlo engine"
+    description: "Code that runs many random simulations of cash flows or portfolio returns and summarises the output distribution."
+    aliases: ["simulation engine", "Monte Carlo model", "Monte Carlo code", "risk simulation"]
   - id: gips_report_builder
     type: build
+    label: "GIPS report builder"
+    description: "Tool that computes composite returns and formats a GIPS-style performance presentation."
+    aliases: ["performance report builder", "composite return report", "GIPS compliant report", "GIPS reporting tool"]
 
 # =============================================================================
 # EDGES
@@ -382,34 +568,34 @@ edges:
     type: exercised-by
 
   # ---------------------------------------------------------------------------
-  # Sub-graph Wiring (Alternative Investments & Career Routes)
+  # Sub-graph Wiring (Career Routes: parallel alternatives, each entered from the domain it builds on)
   # ---------------------------------------------------------------------------
   - source: alternative_investments
     target: search_fund
     type: precedes
-  - source: search_fund
+  - source: quantitative_methods
     target: quant_route
     type: precedes
-  - source: quant_route
+  - source: economics
     target: academic_doctorate
     type: precedes
-  - source: academic_doctorate
+  - source: ethics_and_professional_standards
     target: charter_route
     type: precedes
 
   # ---------------------------------------------------------------------------
-  # Sub-graph Wiring (Credentials)
+  # Sub-graph Wiring (Credentials: independent, each attached to the domain it covers)
   # ---------------------------------------------------------------------------
   - source: charter_route
     target: cfa_charter
     type: requires
-  - source: cfa_charter
+  - source: financial_statement_analysis
     target: cpa_license
     type: precedes
-  - source: cpa_license
+  - source: portfolio_management
     target: frm_certification
     type: precedes
-  - source: frm_certification
+  - source: alternative_investments
     target: caia_charter
     type: precedes
 

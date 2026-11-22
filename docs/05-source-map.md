@@ -52,3 +52,7 @@ Every declared node is listed below. Where a node has more than one conceptual a
 ## Limits of this map
 
 The OUTSIDE entries are intentionally not presented as supported by the four finance-text anchors. In particular, the graph's regulatory edges are a study aid, not legal authority. Verify legal and regulatory claims against applicable primary sources and qualified counsel; verify credential and standards claims with the issuing organization. The node-to-anchor index is a starting point for further reading, not a claim that each node is fully covered by its listed reference.
+
+## About node descriptions
+
+Each node in `graph.yaml` also carries a short `label`, `description`, and `aliases`. These are plain-language study-aid summaries written for matching questions to nodes and for narrating roadmaps. They are not quotations from, and have not been checked line by line against, the anchors above. Check a description against the listed anchor, or the issuing body for regulatory and credential nodes, before relying on it.

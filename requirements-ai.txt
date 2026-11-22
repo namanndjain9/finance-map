@@ -1,0 +1,7 @@
+-r requirements.txt
+google-genai
+sentence-transformers
+numpy
+fastapi
+uvicorn
+httpx

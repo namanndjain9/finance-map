@@ -1,0 +1,131 @@
+# Storyboard for the demo video. Edit the text or actions here and re-run:
+#   .\.venv\Scripts\python.exe -m demo.make
+#
+# Each scene's narration is spoken from the moment the scene starts; the scene lasts until both the
+# narration and its actions are finished. `caption` is what the mascot's speech bubble shows.
+#
+# Actions (run in order, while the narration plays):
+#   pause: ms                          wait
+#   move: selector                     glide the cursor to the element's centre
+#   hover_badges: n                    glide over the first n numbered path badges on the graph
+#   click: selector                    glide there and click
+#   type: text                         clear the question box and type the text at human speed
+#   submit: true                       press the "Get roadmap" button
+#   wait_for: selector                 wait until the element is visible (e.g. the run finished)
+#   scroll_to: selector                smooth-scroll the element into the middle of the screen
+#   scroll_top: true                   smooth-scroll back to the top
+#   spotlight: selector                draw a glowing outline around an element ("none" clears it)
+#   hide_mascot / show_mascot: true    tuck the narrator away for a moment
+
+voice: en-US-AndrewNeural   # any `edge-tts --list-voices` name, e.g. en-GB-SoniaNeural, en-US-AriaNeural
+rate: "+0%"                 # speaking speed, e.g. "-5%" or "+8%"
+music_volume: 0.22          # background music level under the voice (0..1)
+
+intro:
+  narration: >-
+    Learning finance can feel like a maze of disconnected ideas.
+    Finance Map turns that maze into a route you can follow.
+
+outro:
+  narration: >-
+    Finance Map. Ask a question, get a roadmap.
+    A learning aid for finance, not investment advice.
+
+scenes:
+  - id: graph
+    caption: "62 concepts, one map"
+    narration: >-
+      Underneath is a knowledge graph of sixty-two finance concepts, from accounting and valuation
+      to bonds and derivatives, linked by how each one builds on the next.
+    actions:
+      - spotlight: ".graph"
+      - move: ".graph"
+      - pause: 1800
+      - move: ".legend"
+      - pause: 1500
+      - spotlight: none
+
+  - id: ask
+    caption: "Ask in plain words"
+    narration: >-
+      Just ask a question in plain words. Our little guide walks through each check: a safety rule
+      first, then exact names, then meaning, and only if it's needed, an AI.
+    actions:
+      - spotlight: "form.ask-row"
+      - type: "How do I get from free cash flow to per share value?"
+      - pause: 300
+      - spotlight: ".run-track"
+      - submit: true
+      - wait_for: ".run-summary"
+      - pause: 1200
+
+  - id: path
+    caption: "Your roadmap"
+    narration: >-
+      Out comes a step-by-step roadmap, highlighted right on the graph, with a plain-language story
+      of why each step matters.
+    actions:
+      - spotlight: ".graph"
+      - hover_badges: 4
+      - spotlight: ".steps"
+      - scroll_to: ".steps"
+      - pause: 1500
+      - spotlight: ".narrative"
+      - scroll_to: ".narrative"
+      - pause: 2000
+      - spotlight: none
+
+  - id: meaning
+    caption: "Matches by meaning"
+    narration: >-
+      Don't know the exact term? Ask how to simulate thousands of random outcomes,
+      and it matches by meaning, straight to Monte Carlo simulation.
+    actions:
+      - scroll_top: true
+      - spotlight: "form.ask-row"
+      - type: "How can I simulate thousands of random outcomes for my returns?"
+      - submit: true
+      - spotlight: ".run-track"
+      - wait_for: ".run-summary"
+      - pause: 800
+      - spotlight: ".graph"
+      - hover_badges: 2
+
+  - id: details
+    caption: "Nothing hidden"
+    narration: >-
+      Every run is transparent. You can see which check matched, and how long each step took.
+    actions:
+      - spotlight: ".run-track"
+      - click: ".run-summary"
+      - pause: 2600
+      - spotlight: none
+
+  - id: refuse
+    caption: "No stock tips"
+    narration: >-
+      It also knows its limits. Ask for a stock tip, and it politely declines.
+    actions:
+      - click: ".run-summary"
+      - spotlight: "form.ask-row"
+      - type: "Which stock should I buy tomorrow?"
+      - submit: true
+      - wait_for: ".run-summary"
+      - spotlight: ".notice"
+      - pause: 2000
+      - spotlight: none
+
+  - id: regulated
+    caption: "Flags regulated work"
+    narration: >-
+      Ask about regulated work like investment advice, and it explains the licensing rules
+      instead of handing you a plan.
+    actions:
+      - spotlight: "form.ask-row"
+      - type: "How do I get into investment advisory?"
+      - submit: true
+      - wait_for: ".run-summary"
+      - spotlight: none
+      - scroll_to: ".narrative"
+      - pause: 2200
+      - scroll_top: true

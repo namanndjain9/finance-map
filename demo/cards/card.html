@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Finance Map card</title>
+<style>
+  :root { --a: #2563eb; --b: #7c3aed; --ink: #e8eefc; --dim: #9fb0d6; }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 1920px; height: 1080px; overflow: hidden; background: #0b1020; }
+  body { font-family: "Segoe UI", system-ui, sans-serif; color: var(--ink);
+    background: radial-gradient(1200px 700px at 30% 20%, #1b2a5a 0%, transparent 60%),
+                radial-gradient(900px 600px at 80% 90%, #3a1d6e 0%, transparent 60%), #0b1020; }
+  .stage { position: absolute; inset: 0; }
+  svg.map { position: absolute; left: 860px; top: 150px; width: 960px; height: 780px; overflow: visible; }
+  .edge { stroke: #3b4c7a; stroke-width: 3; fill: none; stroke-dasharray: var(--len); stroke-dashoffset: var(--len);
+    animation: draw 1s ease-out forwards; }
+  .route { stroke: url(#grad); stroke-width: 9; fill: none; stroke-linecap: round; stroke-dasharray: var(--len);
+    stroke-dashoffset: var(--len); animation: draw 2.6s ease-in-out 1.6s forwards; filter: drop-shadow(0 0 10px #4f7cff); }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+  /* nothing moves until the recorder says "go" (or 1.2 s after load when opened by hand) */
+  body:not(.go) *, body:not(.go) *::before { animation-play-state: paused !important; }
+  .node { fill: #16213f; stroke: #5b72b0; stroke-width: 3; transform-box: fill-box; transform-origin: center;
+    transform: scale(0); animation: pop .5s cubic-bezier(.3,1.6,.5,1) forwards; }
+  .node.on { animation: pop .5s cubic-bezier(.3,1.6,.5,1) forwards, lit .4s ease-out forwards; }
+  @keyframes pop { to { transform: scale(1); } }
+  @keyframes lit { to { fill: #2b4fd6; stroke: #a9c1ff; } }
+  .lbl { fill: var(--dim); font-size: 22px; font-weight: 600; opacity: 0; animation: fade .6s ease-out forwards; }
+  @keyframes fade { to { opacity: 1; } }
+
+  .title { position: absolute; left: 140px; top: 330px; width: 760px; }
+  .title h1 { font-size: 128px; font-weight: 800; letter-spacing: -3px; line-height: 1;
+    background: linear-gradient(90deg, #fff, #b9c9ff 60%, #c9a8ff); -webkit-background-clip: text; color: transparent;
+    opacity: 0; transform: translateY(40px); animation: rise .9s cubic-bezier(.2,.8,.2,1) .3s forwards; }
+  .title p { margin-top: 30px; font-size: 40px; color: var(--dim); font-weight: 500; line-height: 1.3;
+    opacity: 0; transform: translateY(30px); animation: rise .9s cubic-bezier(.2,.8,.2,1) .9s forwards; }
+  .title .note { margin-top: 44px; font-size: 26px; color: #c7d2ee; border-left: 4px solid var(--a); padding-left: 18px;
+    opacity: 0; animation: rise .9s ease-out 1.6s forwards; transform: translateY(20px); }
+  .title .tech { margin-top: 26px; font-size: 22px; color: #7f8fb8; opacity: 0; animation: fade 1s ease-out 2.4s forwards; }
+  @keyframes rise { to { opacity: 1; transform: none; } }
+
+  /* the narrator walks the route */
+  .walker { position: absolute; left: 0; top: 0; width: 60px; height: 88px; offset-rotate: 0deg;
+    offset-anchor: 50% 100%; opacity: 0; }
+  .intro .walker { offset-path: path("M 1000 830 L 1240 640 L 1500 690 L 1660 420 L 1520 230");
+    animation: show .3s 1.6s forwards, walk 2.6s ease-in-out 1.6s forwards; }
+  @keyframes walk { from { offset-distance: 0%; } to { offset-distance: 100%; } }
+  @keyframes show { to { opacity: 1; } }
+  .walker line, .walker circle { stroke: #fff; stroke-width: 3.2; stroke-linecap: round; fill: none; }
+  .walker .arm, .walker .leg { transform-box: view-box; }
+  .walker .arm { transform-origin: 15px 15px; } .walker .leg { transform-origin: 15px 26px; }
+  .intro .walker .leg-a, .intro .walker .arm-b { animation: swing .42s ease-in-out infinite alternate; }
+  .intro .walker .leg-b, .intro .walker .arm-a { animation: swing .42s ease-in-out infinite alternate-reverse; }
+  @keyframes swing { from { transform: rotate(-28deg); } to { transform: rotate(28deg); } }
+  .intro .walker svg { animation: bob .21s ease-in-out infinite alternate; }
+  @keyframes bob { to { transform: translateY(-3px); } }
+
+  .outro .walker { left: 1300px; top: 330px; width: 220px; height: 322px; opacity: 1; }
+  .outro .pad { position: absolute; left: 1240px; top: 300px; width: 340px; height: 420px; border-radius: 48px;
+    background: linear-gradient(160deg, var(--a), var(--b)); box-shadow: 0 30px 80px rgba(37,99,235,.45);
+    transform: scale(0); animation: pop .7s cubic-bezier(.3,1.5,.5,1) .2s forwards; }
+  .outro .walker { left: 1305px; top: 340px; transform: scale(0); animation: pop .6s cubic-bezier(.3,1.5,.5,1) .5s forwards; }
+  .outro .walker .arm-b { animation: wave .45s ease-in-out .9s infinite alternate; transform: rotate(-28deg); }
+  .outro .walker .arm-a { transform: rotate(28deg); }
+  .outro .walker .leg-a { transform: rotate(10deg); } .outro .walker .leg-b { transform: rotate(-10deg); }
+  @keyframes wave { from { transform: rotate(-150deg); } to { transform: rotate(-105deg); } }
+  .outro .title { top: 300px; }
+  .outro .title h1 { font-size: 112px; }
+  .confetti { position: absolute; width: 14px; height: 14px; border-radius: 3px; opacity: 0;
+    animation: fall 3.4s ease-in forwards; }
+  @keyframes fall { 0% { opacity: 1; transform: translateY(-40px) rotate(0); } 100% { opacity: 0; transform: translateY(520px) rotate(540deg); } }
+</style>
+</head>
+<body>
+<div class="stage" id="stage"></div>
+<script>
+  const mode = new URLSearchParams(location.search).get("mode") || "intro";
+  const stage = document.getElementById("stage");
+  document.body.classList.add(mode);
+
+  const figure = (w, h) => `<svg viewBox="0 0 30 44" width="${w}" height="${h}" style="overflow:visible"><g>
+    <circle cx="15" cy="7" r="5"/><line x1="15" y1="12" x2="15" y2="26"/>
+    <g class="arm arm-a"><line x1="15" y1="15" x2="15" y2="24"/></g><g class="arm arm-b"><line x1="15" y1="15" x2="15" y2="24"/></g>
+    <g class="leg leg-a"><line x1="15" y1="26" x2="15" y2="40"/></g><g class="leg leg-b"><line x1="15" y1="26" x2="15" y2="40"/></g>
+  </g></svg>`;
+
+  if (mode === "intro") {
+    // A small made-up concept map (positions relative to the svg at 860,150). The route is lit.
+    const nodes = [
+      ["Accounting", 140, 680, 1], ["Cash flow", 380, 490, 1], ["Discount rate", 640, 540, 1],
+      ["Valuation", 800, 270, 1], ["Per-share value", 660, 80, 1], ["Bonds", 120, 300, 0],
+      ["Options", 380, 150, 0], ["Risk", 560, 330, 0], ["Ethics", 880, 620, 0], ["Portfolios", 300, 20, 0],
+    ];
+    const edges = [[0,1],[1,2],[2,3],[3,4],[5,1],[5,7],[6,7],[7,3],[2,8],[9,6],[9,4],[0,5],[6,4]];
+    const route = [0,1,2,3,4];
+    let svg = `<svg class="map" viewBox="0 0 960 780"><defs><linearGradient id="grad" x1="0" x2="1">
+      <stop offset="0" stop-color="#4f7cff"/><stop offset="1" stop-color="#b47cff"/></linearGradient></defs>`;
+    edges.forEach(([a, b], i) => {
+      svg += `<path class="edge" style="animation-delay:${0.35 + i * 0.05}s" d="M${nodes[a][1]} ${nodes[a][2]} L${nodes[b][1]} ${nodes[b][2]}"/>`;
+    });
+    svg += `<path class="route" d="M${route.map((i) => nodes[i][1] + " " + nodes[i][2]).join(" L")}"/>`;
+    nodes.forEach(([label, x, y, on], i) => {
+      const delay = 0.2 + i * 0.07;
+      const litDelay = on ? 1.6 + route.indexOf(i) * 0.6 : 0;
+      svg += `<circle class="node${on ? " on" : ""}" cx="${x}" cy="${y}" r="${on ? 26 : 20}"
+        style="animation-delay:${delay}s${on ? `, ${litDelay}s` : ""}"/>`;
+      svg += `<text class="lbl" x="${x}" y="${y + (y > 600 ? 62 : -40)}" text-anchor="middle" style="animation-delay:${delay + 0.3}s">${label}</text>`;
+    });
+    svg += `</svg>`;
+    stage.innerHTML = svg + `<div class="walker">${figure(60, 88)}</div>
+      <div class="title"><h1>Finance Map</h1><p>Ask a question.<br>Get a roadmap through finance.</p></div>`;
+  } else {
+    stage.innerHTML = `<div class="pad"></div><div class="walker">${figure(220, 322)}</div>
+      <div class="title"><h1>Finance Map</h1><p>Ask a question.<br>Get a roadmap.</p>
+      <div class="note">A learning aid built from a study graph &mdash;<br>not investment, legal, or registration advice.</div>
+      <div class="tech">Python · NetworkX · FastAPI · React · sentence embeddings · Gemini free tier</div></div>`;
+    const colors = ["#4f7cff", "#b47cff", "#38d39f", "#ffd166", "#ff7aa2"];
+    for (let i = 0; i < 46; i++) {
+      const c = document.createElement("div");
+      c.className = "confetti";
+      c.style.left = 1080 + Math.random() * 700 + "px";
+      c.style.top = 120 + Math.random() * 160 + "px";
+      c.style.background = colors[i % colors.length];
+      c.style.animationDelay = 0.6 + Math.random() * 1.4 + "s";
+      stage.appendChild(c);
+    }
+  }
+  document.querySelectorAll("path.edge, path.route").forEach((p) => p.style.setProperty("--len", Math.ceil(p.getTotalLength()) + 1));
+  window.go = () => document.body.classList.add("go");
+  if (!navigator.webdriver) setTimeout(window.go, 1200);
+</script>
+</body>
+</html>

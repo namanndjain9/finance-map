@@ -1,0 +1,309 @@
+# Eval cases for question -> (start, goal) resolution and the roadmap built from it.
+#
+# Fields
+#   id               unique case id
+#   question         what the learner types
+#   category         direct | alias | goal_only | paraphrase | cross_domain | regulated | out_of_scope
+#   tier             alias = must resolve with exact matching alone (asserted offline in pytest)
+#                    model = needs embeddings and/or the LLM (measured by evals/run.py only)
+#   expected_status  ok (default) | regulated | out_of_scope
+#   expected_start   list of acceptable start ids; omit when the start is not stated (defaulted)
+#   expected_goal    list of acceptable goal ids (for regulated: the regulated activity)
+#   path_must_include / path_must_exclude   node ids the roadmap must / must not contain
+#
+# Every roadmap, whatever the case, is also checked to contain no requires-registration activity.
+
+cases:
+  # ----------------------------------------------------------------- direct
+  - id: direct-01
+    question: "How do I get from free cash flow to per share value?"
+    category: direct
+    tier: alias
+    expected_start: [free_cash_flow]
+    expected_goal: [per_share_value]
+    path_must_include: [discount_rate]
+
+  - id: direct-02
+    question: "What do I need to learn to go from the discount rate to enterprise value?"
+    category: direct
+    tier: alias
+    expected_start: [discount_rate]
+    expected_goal: [enterprise_value]
+
+  - id: direct-03
+    question: "I know DCF and want to learn the Black-Scholes model"
+    category: direct
+    tier: alias
+    expected_start: [dcf]
+    expected_goal: [black_scholes_model]
+
+  - id: direct-04
+    question: "Show me the path from the treasury bill to the CAPM calculator"
+    category: direct
+    tier: alias
+    expected_start: [treasury_bill]
+    expected_goal: [capm_calculator]
+
+  - id: direct-05
+    question: "How do I get from fixed income to derivatives?"
+    category: direct
+    tier: alias
+    expected_start: [fixed_income]
+    expected_goal: [derivatives]
+
+  - id: direct-06
+    question: "Roadmap from market efficiency to the capital asset pricing model"
+    category: direct
+    tier: alias
+    expected_start: [market_efficiency]
+    expected_goal: [capital_asset_pricing_model]
+
+  - id: direct-07
+    question: "From the 3-statement model to the LBO model, what is the order?"
+    category: direct
+    tier: alias
+    expected_start: [3_statement_model]
+    expected_goal: [lbo_model]
+    path_must_include: [M_and_A_model]
+
+  - id: direct-08
+    question: "Path from Monte Carlo simulation to the Monte Carlo engine"
+    category: direct
+    tier: alias
+    expected_start: [monte_carlo_simulation]
+    expected_goal: [monte_carlo_engine]
+
+  # ----------------------------------------------------------------- goal only
+  - id: goal-01
+    question: "How do I learn Black-Scholes?"
+    category: goal_only
+    tier: alias
+    expected_goal: [black_scholes_model]
+    path_must_include: [derivatives]
+
+  - id: goal-02
+    question: "What is a yield curve model and what do I need first?"
+    category: goal_only
+    tier: alias
+    expected_goal: [yield_curve_model]
+
+  - id: goal-03
+    question: "Teach me about the CAPM"
+    category: goal_only
+    tier: alias
+    expected_goal: [capital_asset_pricing_model]
+    path_must_include: [market_efficiency]
+
+  - id: goal-04
+    question: "How do I build a DCF model?"
+    category: goal_only
+    tier: alias
+    expected_goal: [dcf_model]
+
+  - id: goal-05
+    question: "What is net debt?"
+    category: goal_only
+    tier: alias
+    expected_goal: [net_debt]
+
+  - id: goal-06
+    question: "How do I get started on the CFA charter?"
+    category: goal_only
+    tier: alias
+    expected_goal: [cfa_charter, charter_route]
+
+  # ----------------------------------------------------------------- alias / acronym
+  - id: alias-01
+    question: "WACC to per-share value, what is the route?"
+    category: alias
+    tier: alias
+    expected_start: [discount_rate]
+    expected_goal: [per_share_value]
+
+  - id: alias-02
+    question: "How do I go from FCF to EV?"
+    category: alias
+    tier: alias
+    expected_start: [free_cash_flow]
+    expected_goal: [enterprise_value]
+
+  - id: alias-03
+    question: "I understand TVM, how do I get to Monte Carlo?"
+    category: alias
+    tier: alias
+    expected_start: [time_value_of_money]
+    expected_goal: [monte_carlo_simulation, monte_carlo_engine]
+
+  - id: alias-04
+    question: "Using what I know about T-bills, how do I price a corporate bond?"
+    category: alias
+    tier: alias
+    expected_start: [treasury_bill]
+    expected_goal: [corporate_bond]
+
+  - id: alias-05
+    question: "LBO after M&A modelling, what is the order?"
+    category: alias
+    tier: alias
+    expected_start: [M_and_A_model]
+    expected_goal: [lbo_model]
+
+  - id: alias-06
+    question: "How does CAPM feed into the cost of equity calculator?"
+    category: alias
+    tier: alias
+    expected_start: [capital_asset_pricing_model]
+    expected_goal: [capm_calculator]
+
+  # ----------------------------------------------------------------- paraphrase (no exact names)
+  - id: para-01
+    question: "How do I turn forecast cash into a price per share?"
+    category: paraphrase
+    tier: model
+    expected_start: [free_cash_flow, dcf, corporate_finance]
+    expected_goal: [per_share_value]
+
+  - id: para-02
+    question: "How do I value a company's shares by discounting what it earns?"
+    category: paraphrase
+    tier: model
+    expected_goal: [dcf, dcf_model, equity_value, per_share_value]
+
+  - id: para-03
+    question: "What do I need to understand before pricing options?"
+    category: paraphrase
+    tier: model
+    expected_goal: [call_option, black_scholes_model, binomial_tree_model, derivatives]
+
+  - id: para-04
+    question: "How are bonds priced from interest rates over time?"
+    category: paraphrase
+    tier: model
+    expected_goal: [fixed_income, yield_curve_model, corporate_bond]
+
+  - id: para-05
+    question: "How do I measure how risky a stock is compared with the market?"
+    category: paraphrase
+    tier: model
+    expected_goal: [capital_asset_pricing_model, capm_calculator, factor_risk_model]
+
+  - id: para-06
+    question: "How can I simulate thousands of random outcomes for my returns?"
+    category: paraphrase
+    tier: model
+    expected_goal: [monte_carlo_simulation, monte_carlo_engine]
+
+  - id: para-07
+    question: "I want to learn how companies decide how to finance themselves"
+    category: paraphrase
+    tier: model
+    expected_goal: [corporate_finance]
+
+  - id: para-08
+    question: "How do I judge a company's debt load from its accounts?"
+    category: paraphrase
+    tier: model
+    expected_goal: [financial_statement_analysis, net_debt, net_debt_bridge]
+
+  - id: para-09
+    question: "I want to practise trading without risking real money"
+    category: paraphrase
+    tier: model
+    expected_goal: [simulated_paper_trading]
+
+  - id: para-10
+    question: "How can I write beginner-friendly lessons about money?"
+    category: paraphrase
+    tier: model
+    expected_goal: [educational_content_creation]
+
+  # ----------------------------------------------------------------- cross-domain
+  - id: cross-01
+    question: "I know financial statement analysis; how do I get to the Black-Scholes model?"
+    category: cross_domain
+    tier: alias
+    expected_start: [financial_statement_analysis]
+    expected_goal: [black_scholes_model]
+    path_must_include: [derivatives]
+
+  - id: cross-02
+    question: "From portfolio management to the GIPS report builder"
+    category: cross_domain
+    tier: alias
+    expected_start: [portfolio_management]
+    expected_goal: [gips_report_builder]
+    path_must_include: [gips_standards]
+
+  - id: cross-03
+    question: "I know the CAPM; how do I get to pricing call options?"
+    category: cross_domain
+    tier: alias
+    expected_start: [capital_asset_pricing_model]
+    expected_goal: [call_option]
+
+  - id: cross-04
+    question: "Starting from free cash flow, how do I price a call option?"
+    category: cross_domain
+    tier: alias
+    expected_start: [free_cash_flow]
+    expected_goal: [call_option]
+
+  # ----------------------------------------------------------------- regulated work
+  - id: reg-01
+    question: "How do I become a registered investment adviser and give clients advice?"
+    category: regulated
+    tier: model
+    expected_status: regulated
+    expected_goal: [investment_advisory]
+
+  - id: reg-02
+    question: "How do I start a hedge fund and raise money from investors?"
+    category: regulated
+    tier: alias
+    expected_status: regulated
+    expected_goal: [fund_raising]
+
+  - id: reg-03
+    question: "Can I run a broker-dealer from my laptop?"
+    category: regulated
+    tier: alias
+    expected_status: regulated
+    expected_goal: [broker_dealer_execution]
+
+  - id: reg-04
+    question: "Can I advertise my backtested returns to attract clients?"
+    category: regulated
+    tier: model
+    expected_status: regulated
+    expected_goal: [backtest_marketing]
+
+  # ----------------------------------------------------------------- out of scope
+  - id: oos-01
+    question: "Which stock should I buy tomorrow?"
+    category: out_of_scope
+    tier: alias
+    expected_status: out_of_scope
+
+  - id: oos-02
+    question: "Should I put my savings into bonds or equities?"
+    category: out_of_scope
+    tier: alias
+    expected_status: out_of_scope
+
+  - id: oos-03
+    question: "What is the weather in Paris?"
+    category: out_of_scope
+    tier: model
+    expected_status: out_of_scope
+
+  - id: oos-04
+    question: "Write me a poem about the sea"
+    category: out_of_scope
+    tier: model
+    expected_status: out_of_scope
+
+  - id: oos-05
+    question: "Is Tesla stock going to go up next week?"
+    category: out_of_scope
+    tier: model
+    expected_status: out_of_scope

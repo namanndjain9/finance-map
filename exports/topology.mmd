@@ -1,6 +1,7 @@
 graph LR
     subgraph alternative_investments
         M_and_A_model["M_and_A_model"]
+        caia_charter["caia_charter"]
         search_fund["search_fund"]
     end
     subgraph corporate_finance
@@ -12,6 +13,7 @@ graph LR
         black_scholes_model["black_scholes_model"]
     end
     subgraph economics
+        academic_doctorate["academic_doctorate"]
         capm_calculator["capm_calculator"]
         market_efficiency["market_efficiency"]
     end
@@ -21,10 +23,12 @@ graph LR
     subgraph ethics_and_professional_standards
         advisers_act["advisers_act"]
         cfa_code_of_ethics["cfa_code_of_ethics"]
+        charter_route["charter_route"]
         gips_report_builder["gips_report_builder"]
     end
     subgraph financial_statement_analysis
         3_statement_model["3_statement_model"]
+        cpa_license["cpa_license"]
         net_debt_bridge["net_debt_bridge"]
     end
     subgraph fixed_income
@@ -32,32 +36,29 @@ graph LR
     end
     subgraph portfolio_management
         factor_risk_model["factor_risk_model"]
+        frm_certification["frm_certification"]
     end
     subgraph quantitative_methods
         monte_carlo_engine["monte_carlo_engine"]
+        quant_route["quant_route"]
         time_value_of_money["time_value_of_money"]
     end
     subgraph wealth_planning
         academic_research["academic_research"]
         binomial_tree_model["binomial_tree_model"]
     end
-    academic_doctorate["academic_doctorate"]
     backtest_marketing["backtest_marketing"]
     broker_dealer_execution["broker_dealer_execution"]
-    caia_charter["caia_charter"]
     call_option["call_option"]
     capital_asset_pricing_model["capital_asset_pricing_model"]
     cfa_charter["cfa_charter"]
-    charter_route["charter_route"]
     comparable_company_analysis["comparable_company_analysis"]
     corporate_bond["corporate_bond"]
-    cpa_license["cpa_license"]
     discount_rate["discount_rate [turns future cash into present value]"]
     educational_content_creation["educational_content_creation"]
     enterprise_value["enterprise_value"]
     equity["equity"]
     equity_value["equity_value"]
-    frm_certification["frm_certification"]
     fund_raising["fund_raising"]
     gips_standards["gips_standards"]
     interest_rate_swap["interest_rate_swap"]
@@ -66,7 +67,6 @@ graph LR
     net_debt["net_debt"]
     per_share_value["per_share_value"]
     portfolio_rebalancing["portfolio_rebalancing"]
-    quant_route["quant_route"]
     scenario_analysis["scenario_analysis"]
     sec_rule_206["sec_rule_206"]
     simulated_paper_trading["simulated_paper_trading"]
@@ -77,17 +77,21 @@ graph LR
     corporate_finance -->|precedes| financial_statement_analysis
     corporate_finance -->|requires| dcf_model
     ethics_and_professional_standards -->|requires| gips_report_builder
+    ethics_and_professional_standards -->|precedes| charter_route
     ethics_and_professional_standards -->|precedes| cfa_code_of_ethics
     ethics_and_professional_standards -->|precedes| advisers_act
     quantitative_methods -->|precedes| economics
     quantitative_methods -->|requires| monte_carlo_engine
     quantitative_methods -->|precedes| time_value_of_money
+    quantitative_methods -->|precedes| quant_route
     economics -->|precedes| equity_investments
     economics -->|requires| capm_calculator
     economics -->|precedes| market_efficiency
+    economics -->|precedes| academic_doctorate
     financial_statement_analysis -->|precedes| quantitative_methods
     financial_statement_analysis -->|requires| 3_statement_model
     financial_statement_analysis -->|precedes| net_debt_bridge
+    financial_statement_analysis -->|precedes| cpa_license
     equity_investments -->|precedes| fixed_income
     equity_investments -->|requires| lbo_model
     fixed_income -->|precedes| derivatives
@@ -97,8 +101,10 @@ graph LR
     alternative_investments -->|precedes| portfolio_management
     alternative_investments -->|requires| M_and_A_model
     alternative_investments -->|precedes| search_fund
+    alternative_investments -->|precedes| caia_charter
     portfolio_management -->|precedes| wealth_planning
     portfolio_management -->|requires| factor_risk_model
+    portfolio_management -->|precedes| frm_certification
     wealth_planning -->|precedes| ethics_and_professional_standards
     wealth_planning -->|requires| binomial_tree_model
     wealth_planning -->|precedes| academic_research
@@ -137,12 +143,6 @@ graph LR
     cfa_code_of_ethics -->|precedes| gips_standards
     gips_standards -->|precedes| gips_report_builder
     charter_route -->|requires| cfa_charter
-    academic_doctorate -->|precedes| charter_route
-    quant_route -->|precedes| academic_doctorate
-    search_fund -->|precedes| quant_route
-    cfa_charter -->|precedes| cpa_license
-    cpa_license -->|precedes| frm_certification
-    frm_certification -->|precedes| caia_charter
     dcf_model -->|prices| equity
     3_statement_model -->|precedes| comparable_company_analysis
     M_and_A_model -->|precedes| lbo_model
